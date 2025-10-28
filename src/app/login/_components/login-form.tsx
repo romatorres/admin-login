@@ -53,7 +53,7 @@ export function LoginForm() {
           //show loading
         },
         onSuccess: (ctx) => {
-          router.replace("/dashboard");
+          router.replace("/admin");
         },
         onError: (ctx) => {
           // display the error message
@@ -66,7 +66,7 @@ export function LoginForm() {
   async function handleSignInGoogle() {
     const data = await authClient.signIn.social({
       provider: "google",
-      callbackURL: "/dashboard",
+      callbackURL: "/admin",
     });
   }
 
