@@ -1,6 +1,6 @@
-import { DashboardStats } from "./_components/dashboard-stats";
-import { RecentActivity } from "./_components/recent-activity";
-import { QuickActions } from "./_components/quick-actions";
+import { DashboardStats } from "./_components/dados-admin/dashboard-stats";
+import { RecentActivity } from "./_components/dados-admin/recent-activity";
+import { QuickActions } from "./_components/dados-admin/quick-actions";
 
 export default function Dashboard() {
   return (
@@ -11,7 +11,7 @@ export default function Dashboard() {
       </div>
 
       <DashboardStats />
-      
+
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <RecentActivity />
         <QuickActions />
