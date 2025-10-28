@@ -25,7 +25,6 @@ const navigation = [
   { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
   { name: "Usuários", href: "/admin/users", icon: Users },
   { name: "Relatórios", href: "/admin/reports", icon: BarChart3 },
-  { name: "Documentos", href: "/admin/documents", icon: FileText },
   { name: "Configurações", href: "/admin/settings", icon: Settings },
 ];
 
@@ -113,9 +112,7 @@ function UserMenu({ user }: { user: { name: string; email: string } }) {
             <p className="text-sm font-medium text-gray-900 truncate">
               {user.name}
             </p>
-            <p className="text-xs text-gray-500 truncate">
-              {user.email}
-            </p>
+            <p className="text-xs text-gray-500 truncate">{user.email}</p>
           </div>
         </div>
         {isOpen ? (
@@ -129,16 +126,12 @@ function UserMenu({ user }: { user: { name: string; email: string } }) {
       {isOpen && (
         <div className="bg-gray-50 border-t border-gray-200">
           <div className="py-2">
-            <button className="w-full flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">
+            <button className="w-full flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors cursor-pointer">
               <UserCircle className="h-4 w-4 mr-3 text-gray-400" />
               Meu Perfil
             </button>
-            <button className="w-full flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">
-              <Settings className="h-4 w-4 mr-3 text-gray-400" />
-              Preferências
-            </button>
             <div className="border-t border-gray-200 mt-2 pt-2">
-              <div className="px-4 py-2">
+              <div className="px-4 py-2 hover:bg-gray-100">
                 <ButtonSignOut variant="menu" />
               </div>
             </div>
@@ -149,7 +142,13 @@ function UserMenu({ user }: { user: { name: string; email: string } }) {
   );
 }
 
-function SidebarContent({ pathname, user }: { pathname: string; user: { name: string; email: string } }) {
+function SidebarContent({
+  pathname,
+  user,
+}: {
+  pathname: string;
+  user: { name: string; email: string };
+}) {
   return (
     <div className="flex flex-col h-full">
       <nav className="flex-1 px-2 py-4 space-y-1">
@@ -169,7 +168,9 @@ function SidebarContent({ pathname, user }: { pathname: string; user: { name: st
               <item.icon
                 className={cn(
                   "mr-3 h-5 w-5 flex-shrink-0",
-                  isActive ? "text-gray-500" : "text-gray-400 group-hover:text-gray-500"
+                  isActive
+                    ? "text-gray-500"
+                    : "text-gray-400 group-hover:text-gray-500"
                 )}
               />
               {item.name}
@@ -177,7 +178,7 @@ function SidebarContent({ pathname, user }: { pathname: string; user: { name: st
           );
         })}
       </nav>
-      
+
       {/* User menu at bottom */}
       <UserMenu user={user} />
     </div>

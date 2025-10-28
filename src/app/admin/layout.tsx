@@ -1,8 +1,8 @@
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { AdminSidebar } from "./_components/admin-sidebar";
-import { AdminHeader } from "./_components/admin-header";
+import { AdminSidebar } from "./_components/sidebar-admin";
+import { AdminHeader } from "./_components/header-admin";
 
 export default async function AdminLayout({
   children,
@@ -22,9 +22,7 @@ export default async function AdminLayout({
       <AdminSidebar user={session.user} />
       <div className="lg:pl-64">
         <AdminHeader user={session.user} />
-        <main className="p-6">
-          {children}
-        </main>
+        <main className="p-6">{children}</main>
       </div>
     </div>
   );
