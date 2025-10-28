@@ -68,7 +68,7 @@ export function SignupForm() {
         },
         onSuccess: (ctx) => {
           console.log("Cadastrado", ctx);
-          router.replace("/dashboard");
+          router.replace("/admin");
         },
         onError: (ctx) => {
           // display the error message

@@ -1,22 +1,21 @@
-import { auth } from "@/lib/auth";
-import { headers } from "next/headers";
-import { ButtonSignOut } from "./_components/button-signout";
-import { redirect } from "next/navigation";
+import { DashboardStats } from "./_components/dashboard-stats";
+import { RecentActivity } from "./_components/recent-activity";
+import { QuickActions } from "./_components/quick-actions";
 
-export default async function Dashboard() {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
-
-  if (!session) {
-    redirect("/");
-  }
-
+export default function Dashboard() {
   return (
-    <div className="container mx-auto min-h-screen flex items-center justify-center flex-col">
-      <h1 className="text-2xl font-bold mb-2">Página dashboard</h1>
-      <h3>Usuario logado: {session?.user.name} </h3>
-      <ButtonSignOut />
+    <div className="space-y-6">
+      <div>
+        <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
+        <p className="text-gray-600">Bem-vindo ao painel de controle</p>
+      </div>
+
+      <DashboardStats />
+      
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <RecentActivity />
+        <QuickActions />
+      </div>
     </div>
   );
 }
