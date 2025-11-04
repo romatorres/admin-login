@@ -19,6 +19,13 @@ import {
   UserCircle,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { ButtonSignOut } from "./button-signout";
 
 const navigation = [
@@ -99,45 +106,54 @@ function UserMenu({ user }: { user: { name: string; email: string } }) {
 
   return (
     <div className="border-t border-gray-200">
-      {/* User button */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-center justify-between p-4 hover:bg-gray-50 transition-colors"
-      >
-        <div className="flex items-center space-x-3">
-          <div className="h-8 w-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
-            <User className="h-4 w-4 text-white" />
-          </div>
-          <div className="flex-1 min-w-0 text-left">
-            <p className="text-sm font-medium text-gray-900 truncate">
-              {user.name}
-            </p>
-            <p className="text-xs text-gray-500 truncate">{user.email}</p>
-          </div>
-        </div>
-        {isOpen ? (
-          <ChevronUp className="h-4 w-4 text-gray-400" />
-        ) : (
-          <ChevronDown className="h-4 w-4 text-gray-400" />
-        )}
-      </button>
-
-      {/* Dropdown menu */}
-      {isOpen && (
-        <div className="bg-gray-50 border-t border-gray-200">
-          <div className="py-2">
-            <button className="w-full flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors cursor-pointer">
-              <UserCircle className="h-4 w-4 mr-3 text-gray-400" />
-              Meu Perfil
-            </button>
-            <div className="border-t border-gray-200 mt-2 pt-2">
-              <div className="px-4 py-2 hover:bg-gray-100">
-                <ButtonSignOut variant="menu" />
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="w-full flex items-center justify-between p-4 hover:bg-gray-50 transition-colors"
+          >
+            <div className="flex items-center space-x-3">
+              <div className="h-8 w-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+                <User className="h-4 w-4 text-white" />
+              </div>
+              <div className="flex-1 min-w-0 text-left">
+                <p className="text-sm font-medium text-gray-900 truncate">
+                  {user.name}
+                </p>
+                <p className="text-xs text-gray-500 truncate">{user.email}</p>
               </div>
             </div>
-          </div>
-        </div>
-      )}
+            {isOpen ? (
+              <ChevronUp className="h-4 w-4 text-gray-400" />
+            ) : (
+              <ChevronDown className="h-4 w-4 text-gray-400" />
+            )}
+          </button>
+        </DropdownMenuTrigger>
+
+        <DropdownMenuContent
+          className=" w-56 mb-2 ml-4"
+          side="top"
+          align="start"
+        >
+          <Link href="/admin/profile">
+            <DropdownMenuItem>
+              <div className="flex items-center w-full cursor-pointer">
+                <button className="flex cursor-pointer">
+                  <User className="h-4 w-4 mr-2" />
+                  Meu Perfil
+                </button>
+              </div>
+            </DropdownMenuItem>
+          </Link>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem className="text-destructive cursor-pointer" asChild>
+            <div className="flex items-center">
+              <ButtonSignOut variant="menu" />
+            </div>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
     </div>
   );
 }
