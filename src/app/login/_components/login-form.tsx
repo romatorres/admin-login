@@ -19,6 +19,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { authClient } from "@/lib/auth-client";
+import { Toaster } from "@/components/ui/sonner";
+import { toast } from "sonner";
 
 const loginSchema = z.object({
   email: z.string().email({ message: "Email inválido" }),
@@ -53,6 +55,7 @@ export function LoginForm() {
           //show loading
         },
         onSuccess: (ctx) => {
+          toast.success("Login realizado com sucesso!");
           router.replace("/admin");
         },
         onError: (ctx) => {
