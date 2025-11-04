@@ -19,7 +19,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { authClient } from "@/lib/auth-client";
-import { Toaster } from "@/components/ui/sonner";
 import { toast } from "sonner";
 
 const loginSchema = z.object({
@@ -59,8 +58,7 @@ export function LoginForm() {
           router.replace("/admin");
         },
         onError: (ctx) => {
-          // display the error message
-          alert(ctx.error.message);
+          toast.error("Usuario ou Email incorretos!");
         },
       }
     );

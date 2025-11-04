@@ -120,3 +120,29 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* === TOAST VARIANTS === */
+
+/* .toaster [data-type="success"] {
+  --normal-bg: var(--success);
+  --normal-text: var(--success-foreground);
+  --normal-border: color-mix(in srgb, var(--success) 90%, black 10%);
+}
+
+.toaster [data-type="error"] {
+  --normal-bg: var(--destructive);
+  --normal-text: var(--destructive-foreground);
+  --normal-border: color-mix(in srgb, var(--destructive) 80%, black 20%);
+}
+
+.toaster [data-type="warning"] {
+  --normal-bg: var(--warning);
+  --normal-text: var(--warning-foreground);
+  --normal-border: color-mix(in srgb, var(--warning) 80%, black 20%);
+}
+
+.toaster [data-type="info"] {
+  --normal-bg: var(--info);
+  --normal-text: var(--info-foreground);
+  --normal-border: color-mix(in srgb, var(--info) 80%, black 20%);
+} */
