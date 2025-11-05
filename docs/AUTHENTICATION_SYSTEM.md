@@ -2,14 +2,14 @@
 
 ## Visão Geral
 
-Este projeto utiliza **Better Auth** como sistema de autenticação principal, com um sistema de roles baseado em três níveis de permissão: `USER`, `EDITOR` e `ADMIN`.
+Este projeto utiliza **Better Auth** como sistema de autenticação principal, com um sistema de roles baseado em três níveis de permissão: `USER`, `MANAGER` e `ADMIN`.
 
 ## Arquitetura do Sistema
 
 ### Roles Disponíveis
 
 - **USER**: Usuário básico com permissões limitadas
-- **EDITOR**: Pode gerenciar conteúdo (agenda)
+- **MANAGER**: Pode gerenciar conteúdo (agenda)
 - **ADMIN**: Acesso total ao sistema
 
 ### Estrutura de Arquivos
@@ -32,7 +32,13 @@ src/
 └── middleware.ts            # Middleware de proteção de rotas
 ```
 
-## Configuração Base
+## Model Prisma
+
+enum UserRole {
+ADMIN
+MANAGER
+USER
+}
 
 ### Better Auth Setup
 
@@ -152,7 +158,7 @@ export default function MyComponent() {
     user,
     isAuthenticated,
     isAdmin,
-    isEditor,
+    isManager,
     canManageContent,
     hasPermission,
     signIn,
@@ -168,7 +174,7 @@ export default function MyComponent() {
       <p>Olá, {user?.name}!</p>
 
       {isAdmin && <p>Você é administrador</p>}
-      {isEditor && <p>Você pode gerenciar conteúdo</p>}
+      {isManager && <p>Você pode gerenciar conteúdo</p>}
 
       {canManageContent && <button>Criar Nova Agenda</button>}
 
@@ -185,8 +191,8 @@ export default function MyComponent() {
 const { hasPermission } = useAuth();
 
 // ADMIN - tem todas as permissões
-// EDITOR - permissões de conteúdo
-const editorPermissions = [
+// MANAGER - permissões de conteúdo
+const managerPermissions = [
   "agenda:read",
   "agenda:create",
   "agenda:update",
@@ -217,7 +223,7 @@ if (hasPermission("agenda:create")) {
 import {
   requireAdmin,
   requireAuth,
-  requireEditorOrAdmin,
+  requireManagerOrAdmin,
 } from "@/lib/auth-server-utils";
 
 // Apenas admins podem listar usuários
@@ -230,10 +236,10 @@ export async function GET() {
   }
 }
 
-// Editores e admins podem gerenciar agenda
+// Managers e admins podem gerenciar agenda
 export async function POST() {
   try {
-    const user = await requireEditorOrAdmin();
+    const user = await requireManagerOrAdmin();
     // Lógica da API
   } catch (error) {
     return Response.json({ error: "Unauthorized" }, { status: 401 });
@@ -268,7 +274,7 @@ export async function middleware(req: NextRequest) {
   // Proteção de rotas admin
   const userRole = session.user?.role;
   if (req.nextUrl.pathname.startsWith("/admin")) {
-    if (userRole !== "ADMIN" && userRole !== "EDITOR") {
+    if (userRole !== "ADMIN" && userRole !== "MANAGER") {
       const url = req.nextUrl.clone();
       url.pathname = "/";
       return NextResponse.redirect(url);
@@ -325,7 +331,7 @@ export default function Dashboard() {
           <p>Gerencie suas informações pessoais</p>
         </div>
 
-        {/* Card para editores e admins */}
+        {/* Card para managers e admins */}
         <PermissionGate requireAdmin={false}>
           {canManageContent && (
             <div className="card">
@@ -376,7 +382,7 @@ export function AgendaCard({ agenda }: AgendaCardProps) {
         {/* Botão de visualizar - todos podem ver */}
         <button className="btn-primary">Ver Detalhes</button>
 
-        {/* Botão de editar - editores e admins */}
+        {/* Botão de editar - managers e admins */}
         {hasPermission("agenda:update") && (
           <button className="btn-secondary">Editar</button>
         )}
@@ -393,7 +399,7 @@ export function AgendaCard({ agenda }: AgendaCardProps) {
 
 ```typescript
 // src/app/api/agenda/[id]/route.ts
-import { requireEditorOrAdmin, getAuthUser } from "@/lib/auth-server-utils";
+import { requireManagerOrAdmin, getAuthUser } from "@/lib/auth-server-utils";
 import { prisma } from "@/lib/prisma";
 
 export async function PUT(
@@ -401,8 +407,8 @@ export async function PUT(
   { params }: { params: { id: string } }
 ) {
   try {
-    // Verifica se é editor ou admin
-    const user = await requireEditorOrAdmin();
+    // Verifica se é manager ou admin
+    const user = await requireManagerOrAdmin();
 
     const body = await request.json();
 
