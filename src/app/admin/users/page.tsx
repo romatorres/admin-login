@@ -7,6 +7,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { Card } from "@/components/ui/card";
 import { Edit, Loader2, Mail, Plus, Trash2, User } from "lucide-react";
 import { useState, useEffect } from "react";
 import { UserForm } from "@/app/admin/users/_components/user-form";
@@ -120,10 +121,10 @@ export default function UsersPage() {
           ) : (
             <div className="w-full text-left flex flex-col gap-4">
               {users.map((user) => (
-                <div key={user.id} className="p-4 border-2 rounded-xl">
+                <Card key={user.id}>
                   <div className="flex flex-col gap-2">
                     <p className="flex gap-2 justify-start">
-                      <User className="text-disco-purple" />
+                      <User />
                       <span className="text-xl">{user.name}</span>
                     </p>
                     <p className="flex gap-2 items-center antialiased leading-normal">
@@ -161,7 +162,7 @@ export default function UsersPage() {
                       Excluir
                     </button>
                   </div>
-                </div>
+                </Card>
               ))}
             </div>
           )}

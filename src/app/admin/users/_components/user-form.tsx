@@ -228,10 +228,9 @@ export function UserForm({
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="admin-title">Nome</FormLabel>
+              <FormLabel>Nome</FormLabel>
               <FormControl>
                 <Input
-                  className="admin-input"
                   placeholder="Seu nome completo"
                   {...field}
                   disabled={form.formState.isSubmitting}
@@ -247,10 +246,9 @@ export function UserForm({
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="admin-title">Email</FormLabel>
+              <FormLabel>Email</FormLabel>
               <FormControl>
                 <Input
-                  className="admin-input"
                   placeholder="seu@email.com"
                   type="email"
                   {...field}
@@ -267,14 +265,14 @@ export function UserForm({
           name="role"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="admin-title">Função</FormLabel>
+              <FormLabel>Função</FormLabel>
               <Select onValueChange={field.onChange} value={field.value}>
                 <FormControl>
-                  <SelectTrigger className="admin-input">
+                  <SelectTrigger>
                     <SelectValue placeholder="Selecione uma função" />
                   </SelectTrigger>
                 </FormControl>{" "}
-                <SelectContent className="admin-card">
+                <SelectContent>
                   {userRoles.map((role) => (
                     <SelectItem key={role} value={role}>
                       {roleDisplayConfig[role].label}
@@ -294,11 +292,10 @@ export function UserForm({
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="admin-title">Senha</FormLabel>
+                  <FormLabel>Senha</FormLabel>
                   <FormControl>
                     <div className="relative">
                       <Input
-                        className="admin-input"
                         placeholder="••••••••"
                         type={showPassword ? "text" : "password"}
                         {...field}
@@ -330,11 +327,10 @@ export function UserForm({
               name="confirmPassword"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="admin-title">Confirmar Senha</FormLabel>
+                  <FormLabel>Confirmar Senha</FormLabel>
                   <FormControl>
                     <div className="relative">
                       <Input
-                        className="admin-input"
                         placeholder="••••••••"
                         type={showConfirmPassword ? "text" : "password"}
                         {...field}
@@ -369,13 +365,10 @@ export function UserForm({
           <>
             <div className="border-t border-border pt-6">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="admin-title text-lg font-semibold">
-                  Alterar Senha
-                </h3>
+                <h3 className="text-lg font-semibold">Alterar Senha</h3>
                 <Button
                   type="button"
                   size="sm"
-                  className="admin-button-secondary"
                   onClick={() => setIsChangingPassword(!isChangingPassword)}
                 >
                   {isChangingPassword ? "Cancelar" : "Alterar Senha"}
@@ -389,13 +382,10 @@ export function UserForm({
                     name="currentPassword"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="admin-title">
-                          Senha Atual
-                        </FormLabel>
+                        <FormLabel>Senha Atual</FormLabel>
                         <FormControl>
                           <div className="relative">
                             <Input
-                              className="admin-input"
                               placeholder="••••••••"
                               type={showCurrentPassword ? "text" : "password"}
                               {...field}
@@ -429,13 +419,10 @@ export function UserForm({
                     name="newPassword"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="admin-title">
-                          Nova Senha
-                        </FormLabel>
+                        <FormLabel>Nova Senha</FormLabel>
                         <FormControl>
                           <div className="relative">
                             <Input
-                              className="admin-input"
                               placeholder="••••••••"
                               type={showNewPassword ? "text" : "password"}
                               {...field}
@@ -469,13 +456,10 @@ export function UserForm({
                     name="confirmNewPassword"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="admin-title">
-                          Confirmar Nova Senha
-                        </FormLabel>
+                        <FormLabel>Confirmar Nova Senha</FormLabel>
                         <FormControl>
                           <div className="relative">
                             <Input
-                              className="admin-input"
                               placeholder="••••••••"
                               type={
                                 showConfirmNewPassword ? "text" : "password"
@@ -516,17 +500,12 @@ export function UserForm({
           <Button
             type="button"
             variant="secondary"
-            className="admin-button-secondary"
             onClick={handleCancel}
             disabled={isSubmitting}
           >
             Cancelar
           </Button>
-          <Button
-            type="submit"
-            className="admin-button-primary"
-            disabled={form.formState.isSubmitting}
-          >
+          <Button type="submit" disabled={form.formState.isSubmitting}>
             {form.formState.isSubmitting ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
