@@ -17,7 +17,7 @@ export function useAuth() {
     // Role e permissões
     role: userRole,
     isAdmin: userRole === "ADMIN",
-    isEditor: userRole === "MANAGER",
+    isManager: userRole === "MANAGER",
     canManageContent: userRole === "ADMIN" || userRole === "MANAGER",
 
     // Funções de verificação de permissão (simplificadas)
@@ -25,9 +25,9 @@ export function useAuth() {
       // Para ADMIN, sempre tem permissão
       if (userRole === "ADMIN") return true;
 
-      // Para EDITOR, permissões de conteúdo
+      // Para MANAGER, permissões de conteúdo
       if (userRole === "MANAGER") {
-        const editorPermissions = [
+        const managerPermissions = [
           "agenda:read",
           "agenda:create",
           "agenda:update",
@@ -35,7 +35,7 @@ export function useAuth() {
           "profile:read_own",
           "profile:update_own",
         ];
-        return editorPermissions.includes(permission);
+        return managerPermissions.includes(permission);
       }
 
       // Para USER, apenas permissões básicas
