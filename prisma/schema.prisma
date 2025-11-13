@@ -80,3 +80,15 @@ model Verification {
 
   @@map("verification")
 }
+
+model Project {
+  id          String    @id @default(cuid())
+  title       String
+  description String
+  imageUrl    String
+  link        String?
+  order       Int?
+  isActive    Boolean   @default(true)
+  createdAt   DateTime  @default(now()) @db.Timestamp()
+  updatedAt   DateTime  @updatedAt @db.Timestamp()
+}
